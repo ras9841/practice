@@ -10,6 +10,6 @@
 #ifndef __REV__
 #define __REV__
 
-void reverse(char* word);   
+char *reverse(char* word);   
 
 #endif
