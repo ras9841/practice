@@ -9,18 +9,24 @@ import java.lang.Integer;
 
 public class PermCheck
 {
-    private HashMap<Character, Integer> dict; 
+    private static PermCheck tst = new PermCheck();
+    private static HashMap<Character, Integer> dict; 
    
-    public PermCheck() 
-    {
-        this.dict = new HashMap<>();
-    };
+    private PermCheck() {};
 
-    public boolean test(String w1, String w2)
+    public static PermCheck getInstance()
     {
+        return tst;
+    }
+
+    public static boolean test(String w1, String w2)
+    {
+        dict = new HashMap<>();
         // Check for same length
         if (w1.length() != w2.length()) return false;
-        
+
+        // Check for same string
+
         // Add the first word to the map
         for (Character c : w1.toLowerCase().toCharArray())
         {
@@ -33,7 +39,11 @@ public class PermCheck
         {
             if (!dict.containsKey(c)) { return false; }
             else if (dict.get(c).equals((Integer) 0)) { return false; }
-            else { dict.replace(c, dict.get(c)-1); }
+            else 
+            { 
+                int val = dict.get(c).intValue();
+                dict.replace(c, (Integer)(val-1)) ;
+            }
         }
         int remainder = dict.values().stream().mapToInt(Integer::intValue).sum(); 
         return remainder == 0 ? true : false;
