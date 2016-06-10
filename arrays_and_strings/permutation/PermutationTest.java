@@ -5,13 +5,32 @@
 
 /**
  * PermutationTest runs a series of test to validate PermCheck.java's test 
- * method. 
+ * method.
+ *
+ * Usage: java -ea PermutationTest
+ *
+ * Note: "-ea" flag required to allow the assertions run.
+ *
+ * @author Allen Sanford (ras9841@rit.edu)
+ * @version 1.0
+ * @since 06/09/16
  */
-public class PermutationTest
+public class PermutationTest 
 {
-    public static void main(String[] args)
+    public static void main(String[] args) 
     {
+        /**
+         * The main method executes nine tests in order to determine if 
+         * two strings are permutations of each other.
+         *
+         * @param args commandline args (not used)
+         */
+        if (args.length > 0) { printUsage(); }
+
         PermCheck pc = PermCheck.getInstance();
+
+        //TC0: null strings
+        assert !pc.test(null, null): "\nFaled test case 0";
 
         //TC1: empty strings 
         assert pc.test("", ""): "\nFaled test case 1";
@@ -43,4 +62,12 @@ public class PermutationTest
         System.out.println("All tests passed.");
     }
 
+    public static void printUsage()
+    {
+    /**
+     * Prints class usage message to standard output.
+     */
+        System.out.println("Usage: java -ea PermutationTest");
+        System.exit(0);
+    }
 }

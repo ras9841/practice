@@ -3,10 +3,18 @@
  * Language: Java 8
  */
 
+/* Imports */
 import java.util.HashMap;
 import java.lang.Character;
 import java.lang.Integer;
 
+/**
+ * PermCheck is a singleton class that encapsulates the test method.
+ *
+ * @author Allen Sanford (ras9841@rit.edu)
+ * @version 1.0
+ * @since 06/09/16
+ */
 public class PermCheck
 {
     private static PermCheck tst = new PermCheck();
@@ -16,13 +24,29 @@ public class PermCheck
 
     public static PermCheck getInstance()
     {
+    /**
+     * getInstance returns the only instance of the PermCheck class.
+     *
+     * @return only PermCheck object.
+     */
         return tst;
     }
 
     public static boolean test(String w1, String w2)
     {
+    /**
+     * test determines if two strings are permutations of one another. The 
+     * analysis is not case sensitive, but is sensitive to whitespace.
+     *
+     * @param w1 first string to analyze
+     * @param w2 second string to analyze
+     * @return true is w1 and w2 are permutations, false if not
+     */
         dict = new HashMap<>();
         
+        // Check for null strings
+        if (w1 == null || w2 == null) { return false; }
+
         // Remove case sensitivity
         w1 = w1.toLowerCase();
         w2 = w2.toLowerCase();
