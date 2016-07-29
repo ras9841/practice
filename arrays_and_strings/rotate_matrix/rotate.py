@@ -3,25 +3,23 @@ def rotate90(matrix, n):
     Rotates a NxN matrix 90 degrees about the center.
     """
     
-    start = 0
-    end = n
-    while n > 2:
-        top = matrix[start][start:end]
-        
-        # top <- left
-        matrix[start][start:end] = matrix[start:end][start]
-        
-        # left <- bottom
-        matrix[start:end][start] = matrix[end][start:end]
-        
-        # bottom <- right
-        matrix[end][start:end] = matrix[start:end][end]
-        
-        # right <- top
-        matrix[start:end][end] = top
-        
-        n -= 2
-        start += 1
-        end -= 1
+    for layer in range(int(n/2)):
+        start = layer
+        end = n - 1 - layer
+        for i in range(start, end):
+            offset = i - start
+            top = matrix[start][i]
+
+            # top <- left
+            matrix[start][i] = matrix[end-offset][start]
+
+            # left <- bottom
+            matrix[end-offset][start] = matrix[end][end-offset]
+
+            # bottom <- right
+            matrix[end][end-offset] = matrix[i][end]
+
+            # right <- top
+            matrix[i][end] = top
 
     return matrix
