@@ -1,0 +1,117 @@
+/**
+ *  File: node.h
+ *  Author: Allen Sanford (ras9841@rit.edu)
+ *  Description:
+ *      Outlines the LinkedList class generically.
+ *  Date Creaded: 08/03/16
+ */
+
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
+
+#ifndef IOSTREAM_H
+#define IOSTREAM_H
+#include <iostream>
+#endif
+
+template <class T>
+class LinkedList {
+/**
+ *  Class outline for a Node object.
+ */
+        struct Node {
+                T data;
+                Node *next;
+        };
+        Node *head;
+        size_t size;
+    public:
+        LinkedList<T> ();
+        T getHead ();
+        void append(T val);
+        void printList();
+};
+
+template <class T>
+LinkedList<T>::LinkedList()
+{
+/**
+ * Consturctor for empty LinkedList.
+ *
+ * @param val - generic value to store.
+ */
+    this->size = 0;
+    this->head = nullptr;
+}
+
+template <class T>
+T LinkedList<T>::getHead()
+/**
+ * Getter method for the head of a linked list. 
+ *
+ * @return the list's head
+ */
+{
+    if (this->size) return this->head->data;
+    else
+    {
+        Node n = Node();
+        return n.data;
+    }
+}
+
+
+template <class T>
+void LinkedList<T>::printList()
+/**
+ * Prints the linked list to standard output starting from
+ * the current node (this).
+ */
+{
+    Node *node = this->head;
+    std::cout << "[";
+    
+    if (this->size)
+    {
+        std::cout << node->data;
+        while (node->next != nullptr)
+        {
+            node = node->next;
+            std::cout << ", " << node->data;
+        }
+    }
+    std::cout << "]\n";
+}
+
+
+template <class T>
+void LinkedList<T>::append(T val)
+/**
+ * Creates a new node at the tail of the linked list
+ * with data val.
+ *
+ * @param val - value to append to the list.
+ */
+{
+    Node *n = new Node();
+    n->data = val;
+    n->next = nullptr;
+    
+    if (!this->size)
+    {
+        this->head = n;
+    }
+    else
+    {
+        Node *node = this->head;
+        while (node->next != nullptr)
+        {
+            node = node->next;
+        }
+        node->next = n;
+    }
+    this->size++;
+}
+
+
+#endif

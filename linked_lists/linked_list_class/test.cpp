@@ -2,21 +2,23 @@
  *  File: test.cpp
  *  Author: Allen Sanford (ras9841@rit.edu)
  *  Description: 
- *      Simple test file that validates the functionality of the Node class
- *      defined in "node.h". The Node class can be used as a linked list.
+ *      Simple test file that validates the functionality of the LinkedList 
+ *      class defined in "linkedlist.h".
  *  Date Created: 08/03/16
  */
 
+#define IOSTREAM_H
 #include <iostream>
-#include "node.h"
+#include "linkedlist.h"
 
 int main() 
 {
-    Node<int> n1 (1);
-    Node<char> n2 ('c');
+    LinkedList<int> lst;
 
-    std::cout << n1.getData() << "\n";
-    std::cout << n2.getData() << "\n";
-    
+    for (size_t i=5; i<11; ++i) lst.append(i);
+
+    std::cout << lst.getHead() << "\n";
+    lst.printList();
+
     return 0;
 }
