@@ -1,5 +1,5 @@
 /**
- *  File: node.h
+ *  File: linkedlist.h
  *  Author: Allen Sanford (ras9841@rit.edu)
  *  Description:
  *      Outlines the LinkedList class generically.
