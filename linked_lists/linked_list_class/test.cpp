@@ -17,8 +17,18 @@ int main()
 
     for (size_t i=5; i<11; ++i) lst.append(i);
 
-    std::cout << lst.getHead() << "\n";
+    std::cout << "HEAD: " << lst.getHead() << "\n";
     lst.printList();
 
+    lst.remove(10);
+    lst.remove(7);
+    lst.remove(5);
+
+    std::cout << "HEAD: " << lst.getHead() << "\n";
+    lst.printList();
+
+    lst.prepend(4);
+    std::cout << "HEAD: " << lst.getHead() << "\n";
+    lst.printList();
     return 0;
 }

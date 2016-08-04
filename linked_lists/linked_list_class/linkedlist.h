@@ -22,13 +22,17 @@ class LinkedList {
         struct Node {
                 T data;
                 Node *next;
+                Node *prev;
         };
         Node *head;
         size_t size;
     public:
         LinkedList<T> ();
+        ~LinkedList<T> ();
         T getHead ();
+        void prepend (T val);
         void append(T val);
+        void remove(T val);
         void printList();
 };
 
@@ -42,6 +46,32 @@ LinkedList<T>::LinkedList()
  */
     this->size = 0;
     this->head = nullptr;
+}
+
+template <class T>
+LinkedList<T>::~LinkedList()
+{
+/**
+ * Desturctor for LinkedList.
+ *
+ * @param val - generic value to store.
+ */
+    Node *n = this->head;
+    
+    while (n != nullptr)
+    {
+        if (n->next == nullptr)
+        {
+            delete n;
+            n = nullptr;
+        }
+        else 
+        {
+            n = n->next;
+            delete n->prev;
+        }
+    }
+    this->size = 0;
 }
 
 template <class T>
@@ -59,7 +89,6 @@ T LinkedList<T>::getHead()
         return n.data;
     }
 }
-
 
 template <class T>
 void LinkedList<T>::printList()
@@ -83,6 +112,22 @@ void LinkedList<T>::printList()
     std::cout << "]\n";
 }
 
+template <class T>
+void LinkedList<T>::prepend(T val)
+/**
+ * Creates a new node at the head of the linked list
+ * with data val.
+ *
+ * @param val - value to prepend to the list.
+ */
+{
+    Node *n = new Node();
+    n->data = val;
+    n->next = this->head;
+    n->prev = nullptr;
+
+    this->head = n;
+}
 
 template <class T>
 void LinkedList<T>::append(T val)
@@ -96,9 +141,10 @@ void LinkedList<T>::append(T val)
     Node *n = new Node();
     n->data = val;
     n->next = nullptr;
-    
+
     if (!this->size)
     {
+        n->prev = nullptr;
         this->head = n;
     }
     else
@@ -108,10 +154,42 @@ void LinkedList<T>::append(T val)
         {
             node = node->next;
         }
+        n->prev = node;
         node->next = n;
     }
     this->size++;
 }
 
 
+template <class T>
+void LinkedList<T>::remove(T val)
+/**
+ * Removes the node containig the specified value from the list.
+ *
+ * @param val - value to be removed from the list.
+ */
+{
+    Node *node = this->head;
+    while (node != nullptr)
+    {
+        if (node->data == val)
+        {
+            if (node == this->head)
+            {
+                this->head = node->next;
+            }
+            if (node->prev != nullptr) //update previous' next node
+            {
+               node->prev->next = node->next;
+            }
+            if (node->next != nullptr) //update next's previous node
+            {
+               node->next->prev = node->prev;
+            }
+            delete node;
+            this->size--;
+        }
+        node = node->next;
+    }
+}
 #endif
