@@ -1,7 +1,19 @@
+/*
+ *  File: LinkedQueue.java
+ *  Language: Java 8
+ */
+
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.lang.IllegalStateException;
 
+/**
+ *  LinkedQueue is an implementation of a queue that uses an linked list.
+ *
+ *  @author Allen Sanford (ras9841@rit.edu)
+ *  @since 08/05/16
+ *  @version 1.0
+ */
 public class LinkedQueue<T> 
 {
     private LinkedList<T> queue;
@@ -63,7 +75,7 @@ public class LinkedQueue<T>
         ListIterator<T> itr = this.queue.listIterator(0);
         while (itr.hasNext())
         {
-            str += "("+itr.next()+") -> ";
+            str += "("+itr.next()+") <= ";
         }
         str += "X";
         return str;
