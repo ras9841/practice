@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class TestNode
 {
     public static void main(String[] args)
@@ -10,12 +12,20 @@ public class TestNode
     
         BST tree = new BST();
 
-        int len = values.length;
-        for (int i=0,j=len/2; i<len; ++i, ++j)
-        {
-            tree.addVal(values[j%len]);
-        }
+        addToTree(tree, values);
 
         System.out.println(tree);
+    }
+
+    public static void addToTree(BST tree, int[] values)
+    {
+        int size = values.length;
+        if (size > 0)
+        {
+            int mid = size/2;
+            tree.addVal(values[mid]);
+            addToTree(tree, Arrays.copyOfRange(values, mid+1, size));
+            addToTree(tree, Arrays.copyOfRange(values, 0, mid));
+        }
     }
 }
