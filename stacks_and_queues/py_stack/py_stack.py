@@ -35,6 +35,7 @@ class Stack:
             return None
         top = self.stack[-1]
         self.stack = self.stack[:-1] # removes top
+        self.size -= 1
         return top
     
     def push(self, a):
