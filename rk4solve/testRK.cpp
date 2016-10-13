@@ -1,15 +1,17 @@
 #include <iostream>
+#include <stdio.h>
+#include <math.h>
 #include "rk4solve.h"
 
 double dydx(double y, double t)
 {
-    return 2*t;
+    return 1+sqrt(y);
 }
 
 int main()
 {
     // Parameters
-    double t_0 = 0, t_f = 10, h = 1;
+    double t_0 = 0, t_f = 2, h = 0.001;
 
     // Initialization
     int num_steps = (int)((t_f-t_0)/h)+1;
@@ -31,13 +33,17 @@ int main()
         time[i++] = t; 
     }
 
-    std::cout << "t\treal\trk4\n";
-    for (int i=0; i<num_steps; i++)
+    // Write out result
+    FILE *f;
+    f = fopen("results.csv", "w");
+    if (f != NULL)
     {
-        std::cout << time[i] << "\t";
-        std::cout << time[i]*time[i] << "\t";
-        std::cout << y[i] << "\n";
+        for (size_t i=0; i<num_steps; i++)
+        {
+            fprintf(f, "%f,%f\n", time[i], y[i]); 
+        }
     }
+    fclose(f);
 
     return 0;
 }
